@@ -6,13 +6,12 @@ module Gaku
     validates :grading_method_id, :gradable_id, :gradable_type, presence: true
 
     validates :gradable_type,
-      inclusion: {
-        in: %w(Gaku::Exam Gaku::Course),
-        message: "%{value} is not a valid"
-      }
+              inclusion: {
+                in: %w(Gaku::Exam Gaku::Course),
+                message: '%value is not a valid'
+              }
 
-    validates :grading_method_id,
-      uniqueness: { scope: [ :gradable_type, :gradable_id ] }
+    validates :grading_method_id, uniqueness: { scope: [:gradable_type, :gradable_id] }
 
     default_scope { order('position ASC') }
 
@@ -30,6 +29,5 @@ module Gaku
         gradable.grading_method_connectors.where(id: id).update_all(position: index)
       end
     end
-
- end
+  end
 end
