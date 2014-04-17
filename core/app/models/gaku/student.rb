@@ -1,6 +1,5 @@
 module Gaku
   class Student < ActiveRecord::Base
-
     include Person, Addresses, Contacts, Notes, Picture, Pagination
 
     has_many :course_enrollments, dependent: :destroy
@@ -17,7 +16,7 @@ module Gaku
 
     has_many :student_specialties
     has_many :specialties, through: :student_specialties
-    has_one :major_specialty, conditions: ["gaku_student_specialties.major = ?", true]
+    has_one :major_specialty, conditions: ['gaku_student_specialties.major = ?', true]
 
     has_many :badges
     has_many :badge_types, through: :badges
@@ -84,7 +83,7 @@ module Gaku
     end
 
     def self.specialties
-      student_specialties.map &:name
+      student_specialties.map & :name
     end
 
     def self.active

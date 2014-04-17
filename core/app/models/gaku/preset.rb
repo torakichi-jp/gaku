@@ -1,6 +1,5 @@
 module Gaku
   class Preset < ActiveRecord::Base
-
     store_accessor :time_format_24
     store_accessor :pagination
     store_accessor :person
