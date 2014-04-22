@@ -37,9 +37,11 @@ module Gaku
 
     accepts_nested_attributes_for :guardians, allow_destroy: true
     accepts_nested_attributes_for :class_group_enrollments,
-        reject_if: proc { |attributes| attributes[:class_group_id].blank? }
-
-
+                                  reject_if: (
+                                    proc do |attributes|
+                                      attributes[:class_group_id].blank?
+                                    end
+                                  )
 
     before_create :set_scholarship_status
     before_create :set_foreign_id_code
@@ -134,7 +136,7 @@ module Gaku
     end
 
     def set_serial_id
-      update_column(:serial_id, "%05d" % id)
+      update_column(:serial_id, format('%05d', id))
     end
 
     def empty_string(size)
