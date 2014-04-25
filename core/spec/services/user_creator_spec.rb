@@ -10,7 +10,7 @@ describe Gaku::UserCreator do
     context 'when there is no active preset setting' do
       it 'sets default locale to English' do
         allow(Gaku::Preset).to receive(:active).and_return(nil)
-        user = Gaku::UserCreator.new(email: 'gaku@engine.io').get_user
+        user = Gaku::UserCreator.new(email: 'gaku@engine.io').user
 
         expect(user.settings[:locale]).to be == 'en'
       end
@@ -19,7 +19,7 @@ describe Gaku::UserCreator do
     context 'when there is existing active preset setting' do
       it 'sets default locale to preset language' do
         allow(Gaku::Preset).to receive(:active).and_return(OpenStruct.new(locale: { 'language' => 'de' }))
-        user = Gaku::UserCreator.new(email: 'gaku@engine.io').get_user
+        user = Gaku::UserCreator.new(email: 'gaku@engine.io').user
 
         expect(user.settings[:locale]).to be == 'de'
       end
