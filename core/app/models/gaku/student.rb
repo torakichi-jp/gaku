@@ -36,17 +36,12 @@ module Gaku
     belongs_to :enrollment_status, foreign_key: :enrollment_status_code, primary_key: :code
 
     accepts_nested_attributes_for :guardians, allow_destroy: true
-    accepts_nested_attributes_for :class_group_enrollments,
-                                  reject_if: (
-                                    proc do |attributes|
-                                      attributes[:class_group_id].blank?
-                                    end
-                                  )
+    accepts_nested_attributes_for :class_group_enrollments, reject_if: (proc { |attr| attr[:class_group_id].blank? })
 
     before_create :set_scholarship_status
     before_create :set_foreign_id_code
-    after_create  :set_serial_id
-    after_save   :set_code
+    after_create :set_serial_id
+    after_save :set_code
 
     def add_to_selection
       hash = { id: "#{id}", full_name: "#{surname} #{name}" }
@@ -97,7 +92,8 @@ module Gaku
     end
 
     def set_foreign_id_code
-      if preset = Preset.active
+      preset = Preset.active
+      if preset
         if preset.increment_foreign_id_code == '1'
           self.foreign_id_code = (preset.last_foreign_id_code.to_i + 1).to_s
           preset.last_foreign_id_code = foreign_id_code
@@ -136,7 +132,7 @@ module Gaku
     end
 
     def set_serial_id
-      update_column(:serial_id, format('%05d', id))
+      update_column :serial_id, format('%05d', id)
     end
 
     def empty_string(size)
