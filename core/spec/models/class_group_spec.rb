@@ -42,7 +42,7 @@ describe Gaku::ClassGroup do
       it 'decrements notes_count' do
         expect do
           class_group_with_note.notes.last.destroy
-        end.to change { class_group_with_note.reload.notes_count }.by -1
+        end.to change { class_group_with_note.reload.notes_count }.by(-1)
       end
     end
   end

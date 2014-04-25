@@ -11,7 +11,11 @@ describe Gaku::SemesterClassGroup do
     it { should validate_presence_of :semester_id }
     it { should validate_presence_of :class_group_id }
 
-    it { should validate_uniqueness_of(:semester_id).scoped_to(:class_group_id).with_message(/Semester already added to Class Group/) }
+    it do
+      should validate_uniqueness_of(:semester_id)
+        .scoped_to(:class_group_id)
+        .with_message(/Semester already added to Class Group/)
+    end
   end
 
 end
