@@ -61,10 +61,9 @@ describe Gaku::Exam do
       it 'decrements exam_portions_count' do
         expect do
           exam_with_portions.exam_portions.last.destroy
-        end.to change { exam_with_portions.reload.exam_portions_count }.by -1
+        end.to change { exam_with_portions.reload.exam_portions_count }.by(-1)
       end
     end
-
 
     context 'notes_count' do
 
@@ -80,7 +79,7 @@ describe Gaku::Exam do
       it 'decrements notes_count' do
         expect do
           exam_with_note.notes.last.destroy
-        end.to change { exam_with_note.reload.notes_count }.by -1
+        end.to change { exam_with_note.reload.notes_count }.by(-1)
       end
     end
   end
