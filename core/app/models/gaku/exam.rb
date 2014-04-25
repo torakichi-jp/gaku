@@ -32,7 +32,7 @@ module Gaku
     end
 
     def total_weight
-      exam_portions.reduce(0) { |sum, p| p.weight ? sum + p.weight : sum }
+      exam_portions.reduce(0) { |a, e| e.weight ? a + e.weight : a }
     end
 
     def total_weight_except(portion)
@@ -46,7 +46,7 @@ module Gaku
     end
 
     def max_score
-      exam_portions.reduce(0) { |sum, p| sum + p.max_score }
+      exam_portions.reduce(0) { |a, e| a + e.max_score }
     end
 
     def completion(students)
